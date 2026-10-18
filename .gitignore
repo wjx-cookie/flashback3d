@@ -1,0 +1,91 @@
+# ========== 构建产物 ==========
+.gradle/
+build/
+out/
+classes/
+bin/
+target/
+*.class
+
+# Loom 自己的缓存（体积大且完全可重建）
+.loom-cache/
+build/loom-cache/
+**/build/loom-cache/
+
+# ========== Flashback（ARR 许可，禁止分发）=========
+#
+# 关键：用 libs/* 而不是 libs/*.jar。两个原因：
+#   1. gitignore 匹配大小写敏感 —— libs/*.jar 匹配不到 *.JAR
+#   2. build.gradle 用 fileTree(dir:'libs', include:'*.jar') 全收，
+#      扩展名清单根本列不全（.zip / .JAR 都会漏）
+#
+# 排除整个目录后再放行说明文档，注意 `!` 必须写在 libs/* 之后才生效。
+libs/*
+!libs/README.md
+
+# 其他第三方本地依赖（同上，一律不分发）
+# gradle-wrapper.jar 是例外，必须入库，否则 fork 的人无法 ./gradlew
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+
+# ========== 反编译产物 ==========
+# 受 Mojang 映射协议约束，禁止公开发布
+*-sources.jar
+*-dev.jar
+*-shadow.jar
+decompiled/
+sources/
+
+# ========== IDE ==========
+.idea/
+*.iml
+*.ipr
+*.iws
+*.launch
+.settings/
+.project
+.classpath
+.factorypath
+.vscode/
+*.code-workspace
+nbproject/
+.metadata/
+
+# ========== 系统噪音 ==========
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ========== 游戏运行目录（含存档、日志，很大）=========
+#
+# Loom 的开发运行目录里会生成世界存档和日志，
+# 一个单人世界动辄几百 MB，提交上去仓库就废了。
+run/
+runClient/
+runServer/
+runs/
+usercache.json
+usernamecache.json
+
+# ========== 日志与崩溃转储 ==========
+*.log
+*.log.*
+logs/
+crash-reports/
+hs_err_pid*.log
+*.hprof
+*.heap
+replay_pid*.log
+*.lck
+
+# ========== 仅本地 ==========
+local.properties
+
+# ========== 本模组运行期产物 ==========
+# 配置由用户本地生成，不入库
+config/flashback3d.json

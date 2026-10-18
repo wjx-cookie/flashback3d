@@ -1,0 +1,16 @@
+{
+  "flashback3d.mode.breakout": "竖屏破框",
+  "flashback3d.mode.wobble": "运动视差",
+  "flashback3d.mode.anaglyph": "红青立体",
+  "flashback3d.mode.corner": "折角双屏",
+  "flashback3d.desc.breakout": "强制透视 + 边界对齐，物体冲出屏幕。任何手机可看，零设备零动作。深度来自引擎真实几何，树叶缝隙、栅栏、玻璃这些 AI 抠像必糊的地方干干净净。",
+  "flashback3d.desc.wobble": "画面自己左右摆动，前景快背景慢，单眼就能读出深度。渲染开销为零，可与任何布局同时勾选。适合运镜长镜头。",
+  "flashback3d.desc.anaglyph": "真立体。需要纸质红蓝眼镜（几分钱），任何屏幕可看。色彩有损，原理上无法根除。建议随视频附可剪的纸眼镜图样。",
+  "flashback3d.desc.corner": "两块物理屏成角度拼接。户外裸眼 3D 大屏的标准形态，属于 B 端资产。",
+  "flashback3d.label.screenDistance": "屏幕距离",
+  "flashback3d.label.eyeSeparation": "视点间距",
+  "flashback3d.label.cornerAngle": "折角角度（度）",
+  "flashback3d.warn.untested": "该 Flashback 版本未经验证，可能工作异常",
+  "flashback3d.warn.missing": "未检测到 Flashback，3D 导出已停用",
+  "flashback3d.warn.tooold": "Flashback 版本过低，3D 导出已停用"
+}

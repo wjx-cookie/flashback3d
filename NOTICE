@@ -1,0 +1,34 @@
+Flashback 3D
+Copyright (c) 2026 wjx-cookie
+
+项目主页: https://github.com/wjx-cookie/flashback3d
+许可: MIT（见 LICENSE）
+
+本产品包含以下第三方内容，其权利归属各自所有者：
+
+1. Flashback（Moulberry）
+   - All Rights Reserved
+   - 本产品不分发其代码，仅在运行期由用户自行安装后调用
+   - 详见 LEGAL.md 第一节
+
+2. Minecraft / Mojang Mappings（Mojang Studios）
+   - 反编译仅在本地开发时使用，未公开发布
+   - 详见 LEGAL.md 第二节
+
+3. Dubois 色分算法
+   - Eric Dubois, "A projection method to generate anaglyph stereo images",
+     ICASSP 2001, Vol.3, pp.1661-1664
+   - 公开学术成果，本产品仅实现其系数矩阵
+
+4. Kooima 通用离轴投影
+   - Robert Kooima, "Generalized Perspective Projection"
+   - 计算机图形学公开技术
+
+5. JOML（Java OpenGL Math Library）
+   - MIT License
+   - 随 Minecraft 提供，本产品仅调用其 API
+
+商标声明：
+Minecraft 是 Mojang Studios 的注册商标。
+Flashback 是 Moulberry 的作品名称。
+本产品为非官方附属，与上述主体无关联、授权或背书关系。

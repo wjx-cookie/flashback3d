@@ -1,0 +1,31 @@
+# 行尾规范
+#
+# 为什么需要这个文件：
+# .bat 必须用 CRLF —— cmd 按 GBK 读取 UTF-8，中文注释会变乱码，
+# 乱码后整行失效（"勫缓 不是内部或外部命令"）。
+# 即使脚本本身是纯 ASCII，LF 行尾在部分 cmd 版本下也会出问题。
+# 其余文本文件统一 LF，避免跨平台 diff 噪音。
+
+# Windows 脚本：强制 CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# 其余文本：统一 LF
+*.java text eol=lf
+*.gradle text eol=lf
+*.properties text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.xml text eol=lf
+
+# Gradle wrapper 脚本（若后续生成）
+gradlew text eol=lf
+
+# 二进制：不做任何转换
+*.jar binary
+*.png binary
+*.jpg binary
+*.zip binary

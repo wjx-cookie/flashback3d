@@ -1,0 +1,16 @@
+{
+  "flashback3d.mode.breakout": "Breakout",
+  "flashback3d.mode.wobble": "Motion Parallax",
+  "flashback3d.mode.anaglyph": "Anaglyph",
+  "flashback3d.mode.corner": "Corner Dual Screen",
+  "flashback3d.desc.breakout": "Forced perspective. Viewable on any phone, no glasses. Depth comes from real engine geometry.",
+  "flashback3d.desc.wobble": "Camera sways side to side; near objects move more than far ones. Zero rendering cost, stacks with any layout.",
+  "flashback3d.desc.anaglyph": "True stereo. Needs paper red-cyan glasses. Color loss is unavoidable.",
+  "flashback3d.desc.corner": "Two angled physical screens. Standard for outdoor 3D billboards.",
+  "flashback3d.label.screenDistance": "Screen Distance",
+  "flashback3d.label.eyeSeparation": "View Separation",
+  "flashback3d.label.cornerAngle": "Corner Angle (deg)",
+  "flashback3d.warn.untested": "This Flashback version is unverified and may malfunction",
+  "flashback3d.warn.missing": "Flashback not detected, 3D export disabled",
+  "flashback3d.warn.tooold": "Flashback version too old, 3D export disabled"
+}

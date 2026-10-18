@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "id": "flashback3d",
+  "version": "${version}",
+  "name": "Flashback 3D",
+  "description": "Flashback 附属：把 Minecraft 回放导出成普通人不用戴设备就能看的 3D 短视频 —— 竖屏破框 / 运动视差 / 红青立体 / 折角双屏，只在导出时生效。",
+  "authors": [
+    "wjx-cookie"
+  ],
+  "contact": {
+    "homepage": "https://github.com/wjx-cookie/flashback3d",
+    "issues": "https://github.com/wjx-cookie/flashback3d/issues",
+    "sources": "https://github.com/wjx-cookie/flashback3d"
+  },
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.flashback3d.Flashback3DClient"
+    ],
+    "main": [
+      "com.flashback3d.Flashback3D"
+    ]
+  },
+  "mixins": [
+    "flashback3d.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "1.21.1",
+    "java": ">=21",
+    "flashback": ">=0.39.0"
+  },
+  "suggests": {
+    "sodium": "*"
+  },
+  "custom": {
+    "flashback3d": {
+      "flashbackTargetVersion": "0.39.10",
+      "flashbackMinVersion": "0.39.0",
+      "sodiumCompat": "detected-only",
+      "sodiumNote": "Sodium 为可选共存项，非依赖。检测到时仅提示，不做自动规避。"
+    }
+  }
+}

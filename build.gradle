@@ -1,0 +1,102 @@
+plugins {
+    id 'fabric-loom' version '1.17.21'
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+loom {
+    // 关键：Flashback 使用 Mojang 官方映射（Mojmap），不是 Yarn。
+    // 若改用 Yarn，所有针对 Flashback 的 mixin 目标与编译期引用都会失败。
+    // 反编译产物受 Mojang 映射协议约束，请勿公开发布。见 LEGAL.md
+}
+
+repositories {
+    mavenCentral()
+    maven { name = 'Fabric'; url = 'https://maven.fabricmc.net/' }
+    maven { name = 'Mojang'; url = 'https://libraries.minecraft.net/' }
+    maven { name = 'Modrinth'; url = 'https://api.modrinth.com/maven' }
+    // MixinExtras 备选仓库（若 Modrinth 不可达，取消下行注释）
+    // maven { name = 'LlamaLad7'; url = 'https://repo.llamalad7.me/maven/' }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
+
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    // Flashback 是 ARR（All Rights Reserved）协议，作者未发布到任何 Maven 仓库。
+    // 因此只能本地引用 jar，且仅参与编译、绝不打进产物。
+    // 用法：把 Flashback-*.jar 放进 libs/ 目录。
+    def flashbackJars = fileTree(dir: 'libs', include: '*.jar')
+    modCompileOnly flashbackJars
+
+    // MixinExtras：提供 @WrapOperation。
+    // Fabric Loader 0.15+ 已将 MixinExtras 内置进运行时，
+    // 因此这里只需编译期可见，不打包进产物。
+    compileOnly "io.github.llamalad7:mixinextras-fabric:${project.mixinextras_version}"
+    annotationProcessor "io.github.llamalad7:mixinextras-fabric:${project.mixinextras_version}"
+
+    // Gson：配置持久化用到。
+    // Minecraft 自带 Gson，但 Loom 不一定把它加入 compileClasspath。
+    // 显式声明可以避免 "package com.google.gson does not exist"。
+    // 这里用 compileOnly —— 运行时由 MC 提供，不打进产物，避免与 MC 自带版本冲突。
+    compileOnly "com.google.code.gson:gson:2.11.0"
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+}
+
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') {
+        expand 'version': project.version
+    }
+}
+
+// 构建时若 libs/ 为空，给出明确提示而不是让用户对着一份晦涩的编译错误发呆
+tasks.named('compileJava').configure {
+    doFirst {
+        // 注意：不要按文件名匹配。Ant 匹配大小写敏感，
+        // 官方命名是 Flashback-0.39.10-for-MC1.21.1.jar（大写 F），
+        // 小写 pattern 会匹配不到，然后报出几百个"找不到符号"，
+        // 看着像代码坏了其实只是 jar 没被引用。这里全收整个目录。
+        def libs = file('libs').listFiles()?.findAll { it.isFile() && it.name.toLowerCase().endsWith('.jar') } ?: []
+        if (libs.isEmpty()) {
+            logger.warn('')
+            logger.warn('============================================================')
+            logger.warn('  未检测到 libs/ 下的 Flashback jar。')
+            logger.warn('  本模组需要 Flashback 才能编译（编译期依赖，不打进产物）。')
+            logger.warn('  请从官方渠道获取 Flashback-0.39.10-for-MC1.21.1.jar')
+            logger.warn('  并放入 libs/ 目录后重新构建。')
+            logger.warn('============================================================')
+            logger.warn('')
+        } else {
+            libs.each { logger.lifecycle("Flashback 编译期依赖: ${it.name}") }
+        }
+    }
+}
+
+publishing {
+    publications {
+        create('mavenJava', MavenPublication) {
+            from components.java
+        }
+    }
+}
